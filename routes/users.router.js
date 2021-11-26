@@ -20,4 +20,12 @@ router.get('/:type', (req, res) => {
   res.json(users);
 });
 
+router.post('/', (req, res) => {
+  const body = req.body;
+  res.json({
+    message: "User created",
+    data: body
+  })
+})
+
 module.exports = router;
