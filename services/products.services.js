@@ -27,6 +27,7 @@ class ProductServices {
   }
 
   async find() {
+    let aux = this.getTotal()
     return this.products;
   }
 

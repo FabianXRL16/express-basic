@@ -6,9 +6,13 @@ const productsServices = require('../services/products.services');
 
 const service = new productsServices();
 
-router.get('/', async (req, res) => {
-  let products = await service.find();
-  res.status(200).json(products);
+router.get('/', async (req, res, next) => {
+  try {
+    let products = await service.find();
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get('/food', async (req, res) => {
@@ -35,8 +39,8 @@ router.patch('/:id', async (req, res) => {
     res.json(updateProduct);
   } catch (error) {
     res.status(404).json({
-      msg: error.message
-    })
+      msg: error.message,
+    });
   }
 });
 
@@ -47,8 +51,8 @@ router.delete('/:id', async (req, res) => {
     res.json(deleteProduct);
   } catch (error) {
     res.status(404).json({
-      msg: error.message
-    })
+      msg: error.message,
+    });
   }
 });
 
