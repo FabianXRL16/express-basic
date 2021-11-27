@@ -2,30 +2,41 @@ const express = require('express');
 
 const router = express.Router();
 
+const usersServices = require('../services/users.services');
+
+const service = new usersServices();
+
 router.get('/', (req, res) => {
-  res.send('Users');
+  let usersList = service.find();
+  res.status(200).json(usersList);
 });
 
-router.get('/:type', (req, res) => {
-  const { type } = req.params;
-  const { limit } = req.query;
-  let size = limit || 5;
-  let users = [];
-  for (let i = 0; i < size; i++) {
-    users.push({
-      id: `000${i + 1}`,
-      type,
-    });
-  }
-  res.json(users);
+router.get('/:id', (req, res) => {
+  const { id } = req.params;
+  const user = service.findOne(id);
+  res.status(200).json(user);
 });
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.json({
-    message: "User created",
-    data: body
-  })
+  const user = service.created(body);
+  res.status(201).json({
+    message: 'User created',
+    data: user,
+  });
+});
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  const user = service.update(id, body);
+  res.status(200).json(user);
+});
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  const user = service.delete(id);
+  res.status(200).json(user)
 })
 
 module.exports = router;
