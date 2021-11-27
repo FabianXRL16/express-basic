@@ -22,7 +22,7 @@ router.get('/food', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({
+  res.status(200).json({
     id,
     name: `product${id}`,
   });
@@ -30,7 +30,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.json({
+  res.status(201).json({
     message: 'Product created',
     data: body,
   });
