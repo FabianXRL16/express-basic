@@ -36,10 +36,8 @@ router.patch('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({
-    message: 'Delete Product',
-    id,
-  });
+  const deleteProduct = service.delete(id);
+  res.json(deleteProduct);
 });
 
 module.exports = router;

@@ -48,8 +48,14 @@ class ProductServices {
     };
   }
 
-  delete() {
-
+  delete(id) {
+    const index = this.products.findIndex((i) => i.id === id);
+    if (index === -1) throw new Error('Product not found with that ID');
+    this.products.splice(index, 1);
+    return {
+      msg: "Product delete",
+      id: id
+    }
   }
 }
 
