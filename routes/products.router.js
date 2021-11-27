@@ -2,18 +2,13 @@ const express = require('express');
 
 const router = express.Router();
 
+const productsServices = require('../services/products.services');
+
+const service = new productsServices();
+
 router.get('/', (req, res) => {
-  const { limit } = req.query;
-  let size = limit || 10;
-  let products = [];
-  for (let i = 0; i < size; i++) {
-    products.push({
-      id: `000${i}`,
-      name: `product_${i}`,
-      type: 'smatphone',
-    });
-  }
-  res.json(products);
+  let products = service.find();
+  res.status(200).json(products);
 });
 
 router.get('/food', (req, res) => {
@@ -22,10 +17,8 @@ router.get('/food', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  res.status(200).json({
-    id,
-    name: `product${id}`,
-  });
+  const product = service.findOne(id)
+  res.status(200).json(product);
 });
 
 router.post('/', (req, res) => {
