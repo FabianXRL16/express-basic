@@ -22,7 +22,7 @@ class ProductServices {
     this.products.push(newProduct);
     return {
       msg: 'Product created',
-      ...newProduct
+      ...newProduct,
     };
   }
 
@@ -34,9 +34,23 @@ class ProductServices {
     return this.products.find((i) => i.id === id);
   }
 
-  update() {}
+  update(id, data) {
+    const index = this.products.findIndex((i) => i.id === id);
+    if (index === -1) throw new Error('Product not found with that ID');
+    let updateProduct = this.products[index];
+    this.products[index] = {
+      ...updateProduct,
+      ...data,
+    };
+    return {
+      msg: 'Product update',
+      productUpdate: this.products[index]
+    };
+  }
 
-  delete() {}
+  delete() {
+
+  }
 }
 
 module.exports = ProductServices;
