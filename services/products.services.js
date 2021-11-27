@@ -26,15 +26,15 @@ class ProductServices {
     };
   }
 
-  find() {
+  async find() {
     return this.products;
   }
 
-  findOne(id) {
+  async findOne(id) {
     return this.products.find((i) => i.id === id);
   }
 
-  update(id, data) {
+  async update(id, data) {
     const index = this.products.findIndex((i) => i.id === id);
     if (index === -1) throw new Error('Product not found with that ID');
     let updateProduct = this.products[index];
@@ -48,7 +48,7 @@ class ProductServices {
     };
   }
 
-  delete(id) {
+  async delete(id) {
     const index = this.products.findIndex((i) => i.id === id);
     if (index === -1) throw new Error('Product not found with that ID');
     this.products.splice(index, 1);
