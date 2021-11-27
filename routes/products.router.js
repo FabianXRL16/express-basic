@@ -17,16 +17,14 @@ router.get('/food', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  const product = service.findOne(id)
+  const product = service.findOne(id);
   res.status(200).json(product);
 });
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.status(201).json({
-    message: 'Product created',
-    data: body,
-  });
+  const newProduct = service.created(body);
+  res.status(201).json(newProduct);
 });
 
 router.patch('/:id', (req, res) => {

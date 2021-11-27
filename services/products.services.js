@@ -14,7 +14,17 @@ class ProductServices {
     }
   }
 
-  created() {}
+  created(data) {
+    let newProduct = {
+      id: `00${this.products.length}`,
+      ...data,
+    };
+    this.products.push(newProduct);
+    return {
+      msg: 'Product created',
+      ...newProduct
+    };
+  }
 
   find() {
     return this.products;
