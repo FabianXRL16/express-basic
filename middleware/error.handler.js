@@ -10,4 +10,12 @@ function formatError(err, req, res, next) {
   });
 }
 
-module.exports = { createdError, formatError };
+function formatErrorBoom(err, req, res, next) {
+  if (err.isBoom) {
+    const { output } = err;
+    res.status(output.statusCode).json(output.payload);
+  }
+  next(err);
+}
+
+module.exports = { createdError, formatError, formatErrorBoom };
