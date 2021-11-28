@@ -1,13 +1,17 @@
 const express = require('express');
 const getApi = require('./routes');
 
-const { createdError, formatError } = require('./middleware/error.handler');
+const {
+  createdError,
+  formatError,
+  formatErrorBoom,
+} = require('./middleware/error.handler');
 
 const app = express();
 
 const port = 3000;
 
-app.use(express.json())
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.send('Hi server');
@@ -16,6 +20,7 @@ app.get('/', (req, res) => {
 getApi(app);
 
 app.use(createdError);
+app.use(formatErrorBoom);
 app.use(formatError);
 
 app.listen(port, () => {
